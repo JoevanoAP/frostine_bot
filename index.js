@@ -12,12 +12,13 @@ command(frostine, 'ping', message => {
 })
 
 const help = command(frostine, 'help', message => {
-    message.channel.send = new Discord.MessageEmbed()
+    const help = new Discord.MessageEmbed()
     .setTitle('Frostine Bot Plugins Commands')
     .setDescription('Prefix (+)')
     .addField('help commands', 'to see all commands', true)
     .addField('help moderator', 'to see all moderator commands', true)
     .setColor('69fff0');
+    message.channel.send(help);
 })
 
 frostine.login(config.token)
