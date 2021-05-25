@@ -1,21 +1,20 @@
 const { prefix } = require('./config.json')
 
-//ping
-module.exports = (client, aliases, callback) => {
+module.exports = (frostine, aliases, callback) => {
     if(typeof aliases === 'string'){
         aliases = [aliases]
     }
-}
 
-client.on('message', message => {
-    const { content } = message;
+    frostine.on('message', message => {
+        const { content } = message;
 
-    aliases.forEach(alias => {
-        const command = `${prefix}${alias}`
+        aliases.forEach(alias => {
+            const command = `${prefix}${alias}`
 
-        if(content.startsWith(`${command}`) || content === command){
-            console.log(`Running the command ${command}`)
-            callback(message)
-        }
+            if(content.startsWith(`${command}`) || content === command){
+                console.log(`Running Command ${command}`)
+                callback(message)
+            }
+        })
     })
-})
+}
