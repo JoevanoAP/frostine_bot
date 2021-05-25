@@ -8,7 +8,7 @@ frostine.on('ready', () => {
 })
 
 command(frostine, 'ping', message => {
-    message.channel,send('Heyy!! Im Here!! What you want to do?')
+    message.reply('Heyy!! Im Here!! What you want to do?')
 })
 
 frostine.login(config.token)
