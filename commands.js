@@ -7,7 +7,7 @@ module.exports = (client, aliases, callback) => {
     }
 }
 
-frostine.on('message', message => {
+client.on('message', message => {
     const { content } = message;
 
     aliases.forEach(alias => {
