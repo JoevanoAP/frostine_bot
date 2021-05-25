@@ -1,7 +1,7 @@
 const { prefix } = require('./config.json')
 
 //ping
-module.exports = (frostine, aliases, callback) => {
+module.exports = (client, aliases, callback) => {
     if(typeof aliases === 'string'){
         aliases = [aliases]
     }
