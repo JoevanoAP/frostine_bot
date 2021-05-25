@@ -11,4 +11,4 @@ command(frostine, 'ping', message => {
     message.channel,send('Heyy!! Im Here!! What you want to do?')
 })
 
-client.login(config.token)
+frostine.login(config.token)
