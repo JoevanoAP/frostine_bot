@@ -12,7 +12,7 @@ frostine.on('ready', () => {
     
     if(command){
         //help
-        if(command === 'help'){
+        if(command == 'help'){
         command(frostine, 'help', message => {
             const help = new Discord.MessageEmbed()
             .setTitle('Frostine Bot Plugins Commands')
