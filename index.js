@@ -34,4 +34,11 @@ if(command){
     message.reply("Opss! try to see our plugins commands (+help)")
 }
 
+    const { prefix } = config
+    frostine.user.setPresence({
+        activity: {
+            name: `Use ${prefix}help`,
+        },
+    })
+
 frostine.login(config.token)
