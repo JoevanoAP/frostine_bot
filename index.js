@@ -12,6 +12,7 @@ command(frostine, 'ping', message => {
 })
 
 if(command){
+    //help
     command(frostine, 'help', message => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
@@ -21,13 +22,12 @@ if(command){
         .setColor('69fff0');
         message.channel.send(help);
     })
-} else if (command === "help commands"){
-    command(frostine,'help commands', message => {
+    //help commands
+    command(frostine, 'help commands', message => {
         const help_commands = new Discord.MessageEmbed()
-        .setTitle('Commands Plugin')
-        .setDescription('This command allowed for all members')
-        .addField('ping', 'to check bot online or not')
-        .setColor('69fff0')
+        .setTitle('Commands Plugins')
+        .setDescription('Commands that allowed all members to use!!')
+        .addField('ping', '- To check bot online or offline')
         message.channel.send(help_commands)
     })
 } else{
