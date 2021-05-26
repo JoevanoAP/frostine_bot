@@ -12,6 +12,7 @@ frostine.on('ready', () => {
     
     if(command){
         //help
+        if(command === 'help'){
         command(frostine, 'help', message => {
             const help = new Discord.MessageEmbed()
             .setTitle('Frostine Bot Plugins Commands')
@@ -21,8 +22,9 @@ frostine.on('ready', () => {
             .setColor('69fff0');
             message.channel.send(help);
         })
+    }
         //help commands
-        if(command != 'help'){
+        else if(command != 'help'){
             command(frostine, 'help commands', message => {
                 const help_commands = new Discord.MessageEmbed()
                 .setTitle('Commands Plugins')
