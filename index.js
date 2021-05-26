@@ -11,7 +11,7 @@ command(frostine, 'ping', message => {
     message.reply('Heyy!! Im Here!! What you want to do?')
 })
 
-if(command === 'help'){
+if(command){
     command(frostine, 'help', message => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
