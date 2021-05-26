@@ -22,13 +22,16 @@ frostine.on('ready', () => {
             message.channel.send(help);
         })
         //help commands
-        command(frostine, 'help commands', message => {
-            const help_commands = new Discord.MessageEmbed()
-            .setTitle('Commands Plugins')
-            .setDescription('Commands that allowed all members to use!!')
-            .addField('ping', '- To check bot online or offline')
-            message.channel.send(help_commands)
-        })
+        if(command != 'help'){
+            command(frostine, 'help commands', message => {
+                const help_commands = new Discord.MessageEmbed()
+                .setTitle('Commands Plugins')
+                .setDescription('Commands that allowed all members to use!!')
+                .addField('ping', '- To check bot online or offline')
+                .setColor('69fff0')
+                message.channel.send(help_commands)
+            })   
+        }
     } else{
         message.reply("Opss! try to see our plugins commands (+help)")
     }
