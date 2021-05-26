@@ -21,7 +21,7 @@ if(command){
         .setColor('69fff0');
         message.channel.send(help);
     })
-} else {
+} else if (command === "help commands"){
     command(frostine,'help commands', message => {
         const help_commands = new Discord.MessageEmbed()
         .setTitle('Commands Plugin')
@@ -30,6 +30,8 @@ if(command){
         .setColor('69fff0')
         message.channel.send(help_commands)
     })
+} else{
+    message.reply("Opss! try to see our plugins commands (+help)")
 }
 
 frostine.login(config.token)
