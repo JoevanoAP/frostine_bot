@@ -9,38 +9,24 @@ frostine.on('ready', () => {
     command(frostine, 'ping', message => {
         message.reply('Heyy!! Im Here!! What you want to do?')
     })
-    
-    if(command){
-        //help
-        if(command == 'help'){
-        command(frostine, 'help', message => {
+
+    command(frostine, 'invite', message => {
+        const invite_link = config.invite
+        message.reply(invite_link)
+    })
+
+    command(frostine, 'help', message => {
+        if(command === 'help'){
             const help = new Discord.MessageEmbed()
             .setTitle('Frostine Bot Plugins Commands')
-            .setDescription('Prefix (+)')
-            .addField('help commands', 'to see all commands', true)
-            .addField('help moderator', 'to see all moderator commands', true)
-            .setColor('69fff0');
-            message.channel.send(help);
-        })
-    }
-        //help commands
-        else if(command != 'help'){
-            command(frostine, 'help commands', message => {
-                const help_commands = new Discord.MessageEmbed()
-                .setTitle('Commands Plugins')
-                .setDescription('Commands that allowed all members to use!!')
-                .addField('ping', '- To check bot online or offline')
-                .setColor('69fff0')
-                message.channel.send(help_commands)
-            })   
+            .addField('Help Commands', 'ping | invite')
         }
-    } else{
-        message.reply("Opss! try to see our plugins commands (+help)")
-    }
-
+    })
+    
     const { prefix } = config
     frostine.user.setPresence({
         activity: {
+            type: `WATCHING`,
             name: `Use ${prefix}help`,
         },
     })  
