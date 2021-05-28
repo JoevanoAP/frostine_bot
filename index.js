@@ -26,8 +26,8 @@ frostine.on('ready', () => {
     command(frostine, 'info', message => {
         const info = new Discord.MessageEmbed()
         .setTitle('Bot Information')
-        .addField('Developer/Author', config.author, true)
-        .addField('Bot Version', config.version, true)
+        .addField('Developer/Author', config.author)
+        .addField('Bot Version', config.version)
         .setColor('96fff5')
         message.channel.send(info)
     })
