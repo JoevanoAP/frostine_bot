@@ -22,6 +22,10 @@ frostine.on('ready', () => {
         .setColor('96fff5')
         message.channel.send(help)
     })
+    
+    command(frostine, 'developer', message => {
+        message.reply('SECRET!!')
+    })
 
     command(frostine, 'info', message => {
         const info = new Discord.MessageEmbed()
