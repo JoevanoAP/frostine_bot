@@ -7,7 +7,7 @@ frostine.on('ready', () => {
     console.log('Bot Online')
 
     command(frostine, 'ping', message => {
-        message.reply('Heyy!! Im Here!! What you want to do?')
+        message.reply('Heyy!! Master!! Welcome Home!! What you want to do? Masterr ahnn~ dontt~ ahhnn yamete~')
     })
 
     command(frostine, 'invite', message => {
