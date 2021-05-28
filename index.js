@@ -19,7 +19,17 @@ frostine.on('ready', () => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
         .addField('Help Commands', 'ping | invite')
+        .setColor('96fff5')
         message.channel.send(help)
+    })
+
+    command(frostine, 'info', message => {
+        const info = new Discord.MessageEmbed()
+        .setTitle('Bot Information')
+        .addField('Developer/Author', config.author, true)
+        .addField('Bot Version', config.version, true)
+        .setColor('96fff5')
+        message.channel.send(info)
     })
     
     const { prefix } = config
