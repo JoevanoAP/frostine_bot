@@ -20,6 +20,7 @@ frostine.on('ready', () => {
             const help = new Discord.MessageEmbed()
             .setTitle('Frostine Bot Plugins Commands')
             .addField('Help Commands', 'ping | invite')
+            message.channel.send(help)
         }
     })
     
