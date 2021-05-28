@@ -16,19 +16,17 @@ frostine.on('ready', () => {
     })
 
     command(frostine, 'help', message => {
-        if(command === 'help'){
-            const help = new Discord.MessageEmbed()
-            .setTitle('Frostine Bot Plugins Commands')
-            .addField('Help Commands', 'ping | invite')
-            message.channel.send(help)
-        }
+        const help = new Discord.MessageEmbed()
+        .setTitle('Frostine Bot Plugins Commands')
+        .addField('Help Commands', 'ping | invite')
+        message.channel.send(help)
     })
     
     const { prefix } = config
     frostine.user.setPresence({
         activity: {
             type: `WATCHING`,
-            name: `Use ${prefix}help`,
+            name: `Frostine Server | ${prefix}help`,
         },
     })  
 })
