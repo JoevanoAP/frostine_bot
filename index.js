@@ -7,7 +7,7 @@ frostine.on('ready', () => {
     console.log('Bot Online')
 
     command(frostine, 'ping', message => {
-        message.reply('Heyy!! Master!! What you want to do?')
+        message.reply('Frostine Bot !!')
     })
 
     command(frostine, 'invite', message => {
@@ -21,10 +21,6 @@ frostine.on('ready', () => {
         .addField('Help Commands', 'ping | invite | info')
         .setColor('96fff5')
         message.channel.send(help)
-    })
-    
-    command(frostine, 'developer', message => {
-        message.reply('SECRET!!')
     })
 
     command(frostine, 'info', message => {
@@ -40,7 +36,7 @@ frostine.on('ready', () => {
     frostine.user.setPresence({
         activity: {
             type: `WATCHING`,
-            name: `Frostine Server | ${prefix}help`,
+            name: 'Frostine Server',
         },
     })  
 })
