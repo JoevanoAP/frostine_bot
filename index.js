@@ -71,15 +71,13 @@ frostine.on('ready', () => {
             }
         } 
     })
-/*
     const { prefix } = config
     frostine.user.setPresence({
         activity: {
-            type: `WATCHING`,
-            name: 'Frostine Server',
+            type: `PLAYING`,
+            name: 'Frostine Server :snowflake:',
         },
     })  
-*/
 })
 
 frostine.login(config.token)
