@@ -19,6 +19,7 @@ frostine.on('ready', () => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
         .addField('Help Commands', 'ping | invite | info')
+        .addField('Admin Commands', 'nuke | status')
         .setColor('96fff5')
         message.channel.send(help)
     })
