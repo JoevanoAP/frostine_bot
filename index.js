@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const frostine = new Discord.Client()
 const config = require('./config.json')
-const command = require('./commands.js')
+const command = require('./prefix_perma.js')
 
 frostine.on('ready', () => {
     console.log('Bot Online')
@@ -18,8 +18,9 @@ frostine.on('ready', () => {
     command(frostine, 'help', (message) => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
-        .addField('Help Commands', 'ping | invite | info')
-        .addField('Admin Commands', 'nuke | status')
+        .addField('Help Commands', '``ping | invite | info``')
+        .addField('Admin Commands', '``nuke | status``')
+        .addField('Moderators Commands', '``ban``')
         .setColor('96fff5')
         message.channel.send(help)
     })
@@ -51,6 +52,31 @@ frostine.on('ready', () => {
                     type: 0,
                 },
             })
+        }
+    })
+
+    command(frostine, 'ban', (message) => {
+        const { member, mentions } = message
+        const tag = `<@${member.id}>`
+
+        if(member.hasPermission('BAN_MEMBERS')){
+            const target = mentions.users.first()
+            if(target){
+                const targetMember = message.guild.members.cache.get(target.id)
+                targetMember.ban()
+                message.channel.send(`${tag} That user has been banned.`)
+            } 
+            else {
+                message.channel.send(`${tag} You do not have permission to use this command`)
+            }
+        } 
+        else if(member.hasPermission('ADMINISTRATOR')){
+            const target = mentions.users.first()
+            if(target){
+                const targetMember = message.guild.members.cache.get(target.id)
+                targetMember.ban()
+                message.channel.send(`${tag} WAKE UP FROM UR SLEEP BUDDY!!`)
+            } 
         }
     })
 /*
