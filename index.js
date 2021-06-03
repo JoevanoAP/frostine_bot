@@ -6,16 +6,16 @@ const command = require('./commands.js')
 frostine.on('ready', () => {
     console.log('Bot Online')
 
-    command(frostine, 'ping', message => {
+    command(frostine, 'ping', (message) => {
         message.reply('Frostine Bot !!')
     })
 
-    command(frostine, 'invite', message => {
+    command(frostine, 'invite', (message) => {
         const invite_link = config.invite
         message.reply(invite_link)
     })
 
-    command(frostine, 'help', message => {
+    command(frostine, 'help', (message) => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
         .addField('Help Commands', 'ping | invite | info')
@@ -23,7 +23,7 @@ frostine.on('ready', () => {
         message.channel.send(help)
     })
 
-    command(frostine, 'info', message => {
+    command(frostine, 'info', (message) => {
         const info = new Discord.MessageEmbed()
         .setTitle('Bot Information')
         .addField('Developer/Author', config.author)
@@ -32,14 +32,27 @@ frostine.on('ready', () => {
         message.channel.send(info)
     })
 
-    command(frostine, 'nuke', message => {
+    command(frostine, 'nuke', (message) => {
         if(message.member.hasPermission('ADMINISTRATOR')){
             message.channel.messages.fetch().then((results) => {
                 message.channel.bulkDelete(results)
             })
         }
     })
-    
+
+    command(frostine, 'status', (message) => {
+        if(message.member.hasPermission('ADMINISTRATOR')){
+            const content = message.content.replace('+status ', '')
+
+            frostine.user.setPresence({
+                activity: {
+                    name: content,
+                    type: 0,
+                },
+            })
+        }
+    })
+/*
     const { prefix } = config
     frostine.user.setPresence({
         activity: {
@@ -47,6 +60,7 @@ frostine.on('ready', () => {
             name: 'Frostine Server',
         },
     })  
+*/
 })
 
 frostine.login(config.token)
