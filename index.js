@@ -71,6 +71,7 @@ frostine.on('ready', () => {
             }
         } 
     })
+/*
     const { prefix } = config
     frostine.user.setPresence({
         activity: {
@@ -78,6 +79,7 @@ frostine.on('ready', () => {
             name: 'Frostine Server :snowflake:',
         },
     })  
+*/
 })
 
 frostine.login(config.token)
