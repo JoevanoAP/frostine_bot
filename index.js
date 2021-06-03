@@ -20,7 +20,7 @@ frostine.on('ready', () => {
         .setTitle('Frostine Bot Plugins Commands')
         .addField('Help Commands', '``ping | invite | info``')
         .addField('Admin Commands', '``nuke | status``')
-        .addField('Moderators Commands', '``ban (under testing)``')
+        .addField('Moderators Commands', '``ban (under testing) | kick (under testing)``')
         .setColor('96fff5')
         message.channel.send(help)
     })
@@ -64,6 +64,23 @@ frostine.on('ready', () => {
             if(target){
                 const targetMember = message.guild.members.cache.get(target.id)
                 targetMember.ban()
+                message.channel.send(`${tag} That user has been banned.`)
+            } 
+            else {
+                message.channel.send(`${tag} You do not have permission to use this command`)
+            }
+        } 
+    })
+
+    command(frostine, 'kick', (message) => {
+        const { member, mentions } = message
+        const tag = `<@${member.id}>`
+
+        if(member.hasPermission('ADMINISTRATOR')){
+            const target = mentions.users.first()
+            if(target){
+                const targetMember = message.guild.members.cache.get(target.id)
+                targetMember.kick()
                 message.channel.send(`${tag} That user has been banned.`)
             } 
             else {
