@@ -31,6 +31,14 @@ frostine.on('ready', () => {
         .setColor('96fff5')
         message.channel.send(info)
     })
+
+    command(frostine, 'nuke', message => {
+        if(message.member.hasPermission('ADMINISTRATOR')){
+            message.channel.messages.fetch().then((results) => {
+                message.channel.bulkDelete(results)
+            })
+        }
+    })
     
     const { prefix } = config
     frostine.user.setPresence({
