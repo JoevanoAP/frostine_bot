@@ -52,6 +52,11 @@ frostine.on('ready', () => {
                     type: 0,
                 },
             })
+            if(content){
+                message.reply('Status Changed!!')
+            }
+        } else{
+            message.reply("You're not ADMIN")
         }
     })
 
