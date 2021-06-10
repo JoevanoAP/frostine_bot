@@ -16,7 +16,7 @@ frostine.on('ready', () => {
     //ping command
     command(frostine, 'ping', (message) => {
         if(command){
-            message.reply(`${frostine.ws.ping}, What you want to do ?`)
+            message.channel.send(`**${frostine.ws.ping}ms**, What you want to do ?`)
         }
     })
 
