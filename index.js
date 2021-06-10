@@ -16,7 +16,7 @@ frostine.on('ready', () => {
     //ping command
     command(frostine, 'ping', (message) => {
         if(command){
-            message.channel.send(`**${frostine.ws.ping}ms**, What you want to do ?`)
+           message.channel.send(`**${frostine.ws.ping}ms**, Bot Ping!!`)
         }
     })
 
@@ -31,10 +31,30 @@ frostine.on('ready', () => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
         .addField('Help Commands', '``ping | invite | info``')
-        .addField('Admin Commands', '``nuke | status``')
+        .addField('Admin Commands', '``nuke | status | roles``')
         .addField('Moderators Commands', '``ban (alpha) | kick (alpha)``')
         .setColor('96fff5')
         message.channel.send(help)
+    })
+    
+    command(frostine, 'giverole', (message) => {
+        
+    })
+    //display roles
+    command(frostine, 'roles', (message) => {
+        if(message.member.hasPermission('ADMINISTRATOR')){
+            var rolemap = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(r => r).join("\n")
+            if (rolemap.length > 1024) rolemap = "To many roles to display";
+            if (!rolemap) rolemap = "No roles";
+
+            const roles_list = new Discord.MessageEmbed()
+            .addField("Role List" , rolemap)
+            .setColor('96fff5')
+            message.channel.send(roles_list);
+        }
+        else{
+            message.reply('How dare you to use this command!!')
+        }
     })
 
     //info command
@@ -49,13 +69,13 @@ frostine.on('ready', () => {
 
     //nuke command
     command(frostine, 'nuke', (message) => {
-        if(message.member.hasPermission('ADMINISTRATOR')){
+        if(message.guild.roles.cache.find(r => r.id === '849250745660080128')){
             message.channel.messages.fetch().then((results) => {
                 message.channel.bulkDelete(results)
             })
             message.reply('Text Cleared!!')
         } else{
-            message.reply("You're not allowed to use this command!!")
+            message.reply('How dare you to use this command!!')
         }
     })
 
@@ -74,7 +94,7 @@ frostine.on('ready', () => {
                 message.reply('Status Changed!!')
             }
         } else{
-            message.reply("You're not allowed to use this command!!")
+            message.reply('How dare you to use this command!!') 
         }
     })
 
@@ -89,8 +109,11 @@ frostine.on('ready', () => {
                 const targetMember = message.guild.members.cache.get(target.id)
                 targetMember.ban()
                 message.channel.send(`${tag} That user has been banned.`)
+            } 
+            else if(!mentions.users.first()){
+                message.reply('+kick (@member)')
             } else {
-                message.channel.send(`${tag} You do not have permission to use this command`)
+                message.channel.send(`${tag} How dare you use this command!`)
             }
         }
     })
@@ -105,9 +128,12 @@ frostine.on('ready', () => {
             if(target){
                 const targetMember = message.guild.members.cache.get(target.id)
                 targetMember.kick()
-                message.channel.send(`${tag} That user has been banned.`)
-            } else {
-                message.channel.send(`${tag} You do not have permission to use this command`)
+                message.channel.send(`${tag} That user has been Kicked.`)
+            } else if (!mentions.users.first()) {
+                message.reply('+kick (@member)')
+            }
+            else{
+                message.channel.send(`${tag} How dare you use this command!`)
             }
         }
     })
