@@ -74,6 +74,7 @@ frostine.on('ready', () => {
                 message.channel.bulkDelete(results)
             })
             message.reply('Text Cleared!!')
+            message.delete({setTimeout: 10})
         } else{
             message.reply('How dare you to use this command!!')
         }
@@ -111,7 +112,7 @@ frostine.on('ready', () => {
                 message.channel.send(`${tag} That user has been banned.`)
             } 
             else if(!mentions.users.first()){
-                message.reply('+kick (@member)')
+                message.reply('+ban (@member)')
             } else {
                 message.channel.send(`${tag} How dare you use this command!`)
             }
