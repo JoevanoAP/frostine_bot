@@ -15,7 +15,9 @@ frostine.on('ready', () => {
 
     //ping command
     command(frostine, 'ping', (message) => {
-        message.reply('Frostine Bot !!')
+        if(command){
+            message.reply(`${frostine.ws.ping}, What you want to do ?`)
+        }
     })
 
     //invite command
@@ -109,15 +111,15 @@ frostine.on('ready', () => {
             }
         }
     })
-/*
+
     const { prefix } = config
     frostine.user.setPresence({
         activity: {
             type: `PLAYING`,
-            name: 'Frostine Server :snowflake:',
+            name: 'Frostine Server',
         },
     })  
-*/
+
 })
 
 frostine.login(config.token)
