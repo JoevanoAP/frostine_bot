@@ -31,9 +31,9 @@ frostine.on('ready', () => {
     command(frostine, 'help', (message) => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
-        .addField('Help Commands', '``ping | invite | info``')
-        .addField('Admin Commands', '``nuke | status | roles``')
-        .addField('Moderators Commands', '``ban (alpha) | kick (alpha)``')
+        .addField('Help Commands', '``| ping | invite | info | avatar (alpha) |``')
+        .addField('Admin Commands', '``| status | roles | data |``')
+        .addField('Moderators Commands', '``| ban | kick | clear |``')
         .setColor('96fff5')
         message.channel.send(help)
     })
@@ -55,8 +55,46 @@ frostine.on('ready', () => {
         }
     })
 
+    //data
     command(frostine, 'data', (message) => {
-        
+        if(message.member.hasPermission('ADMINISTRATOR')){
+            var target = message.mentions.users.first() || message.author
+            var member = message.mentions.members.first() || message.member
+
+            const data = new Discord.MessageEmbed()
+            .setTitle(`${member.displayName} Member Data!!`)
+            .setTimestamp()
+            .addFields({
+                name: 'Member Joined',
+                value: member.joinedAt
+            },{
+                name: 'Member Account Created',
+                value: target.createdAt
+            }, {
+                name: "Username & Tag",
+                value: target.tag
+            }, {
+                name: 'Member Id',
+                value: target.id
+            })
+            .setThumbnail(target.displayAvatarURL({ dynamic: true }))
+            .setColor('96fff5')
+            message.channel.send(data)
+        } else {
+            message.reply('How dare you to use this command!!')
+        }
+    })
+
+    //avatar
+    command(frostine, 'avatar', (message) => {
+        var target = message.mentions.users.first()
+        const avatar = new Discord.MessageEmbed()
+        .setTitle(target.tag + ' Avatar')
+        .setImage(target.avatarURL({dynamic: true}))
+        .setColor('96fff5')
+
+        message.channel.send(avatar)
+
     })
 
     //info command
