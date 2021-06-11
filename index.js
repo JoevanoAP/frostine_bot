@@ -87,11 +87,12 @@ frostine.on('ready', () => {
 
     //avatar
     command(frostine, 'avatar', (message) => {
-        var target = message.mentions.users.first()
+        const target = message.mentions.users.first()
         const avatar = new Discord.MessageEmbed()
         .setTitle(target.tag + ' Avatar')
         .setImage(target.avatarURL({dynamic: true}))
         .setColor('96fff5')
+        .setFooter(`${message.author.username}`)
 
         message.channel.send(avatar)
 
@@ -144,15 +145,7 @@ frostine.on('ready', () => {
             })
             if(content){
                 message.reply('Status Changed!!')
-            } else {
-                const { prefix } = config
-                frostine.user.setPresence({
-                    activity: {
-                        type: `PLAYING`,
-                        name: 'Frostine Server',
-                    },
-                })  
-            }
+            } 
         } else{
             message.reply('How dare you to use this command!!') 
         }
@@ -172,8 +165,10 @@ frostine.on('ready', () => {
             } 
             else if(!mentions.users.first()){
                 const nopE = new Discord.MessageEmbed()
-                .addField('Upss!! Wrong Syntax', '+kick (@member)')
-                .setColor('')
+                .addField('Upss!! Wrong Syntax', '+ban (@member)')
+                .setColor('RED')
+
+                message.channel.send(nopE)
             } else {
                 message.channel.send(`${tag} How dare you use this command!`)
             }
@@ -191,8 +186,12 @@ frostine.on('ready', () => {
                 const targetMember = message.guild.members.cache.get(target.id)
                 targetMember.kick()
                 message.channel.send(`${tag} That user has been Kicked.`)
-            } else if (!mentions.users.first()) {
-                message.reply('+kick (@member)')
+            } else if(!mentions.users.first()){
+                const nopE = new Discord.MessageEmbed()
+                .addField('Upss!! Wrong Syntax', '+kick (@member)')
+                .setColor('RED')
+
+                message.channel.send(nopE)
             }
             else{
                 message.channel.send(`${tag} How dare you use this command!`)
