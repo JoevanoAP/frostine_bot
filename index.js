@@ -144,6 +144,14 @@ frostine.on('ready', () => {
             })
             if(content){
                 message.reply('Status Changed!!')
+            } else {
+                const { prefix } = config
+                frostine.user.setPresence({
+                    activity: {
+                        type: `PLAYING`,
+                        name: 'Frostine Server',
+                    },
+                })  
             }
         } else{
             message.reply('How dare you to use this command!!') 
@@ -163,7 +171,9 @@ frostine.on('ready', () => {
                 message.channel.send(`${tag} That user has been banned.`)
             } 
             else if(!mentions.users.first()){
-                message.reply('+ban (@member)')
+                const nopE = new Discord.MessageEmbed()
+                .addField('Upss!! Wrong Syntax', '+kick (@member)')
+                .setColor('')
             } else {
                 message.channel.send(`${tag} How dare you use this command!`)
             }
