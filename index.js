@@ -12,6 +12,7 @@ frostine.on('ready', () => {
 
     //utillity output
     //first_message(frostine, '849970160969449472', 'helloworlds!!!', ['❄'])
+    //10/6/2021
 
     //ping command
     command(frostine, 'ping', (message) => {
@@ -36,10 +37,7 @@ frostine.on('ready', () => {
         .setColor('96fff5')
         message.channel.send(help)
     })
-    
-    command(frostine, 'giverole', (message) => {
-        
-    })
+
     //display roles
     command(frostine, 'roles', (message) => {
         if(message.member.hasPermission('ADMINISTRATOR')){
@@ -57,6 +55,10 @@ frostine.on('ready', () => {
         }
     })
 
+    command(frostine, 'data', (message) => {
+        
+    })
+
     //info command
     command(frostine, 'info', (message) => {
         const info = new Discord.MessageEmbed()
@@ -68,13 +70,24 @@ frostine.on('ready', () => {
     })
 
     //nuke command
-    command(frostine, 'nuke', (message) => {
+    command(frostine, 'clear', (message) => {
         if(message.guild.roles.cache.find(r => r.id === '849250745660080128')){
             message.channel.messages.fetch().then((results) => {
                 message.channel.bulkDelete(results)
             })
-            message.reply('Text Cleared!!')
-            message.delete({setTimeout: 10})
+            message.reply('100 Text Cleared!!')
+            .then(message => {
+                setTimeout (() => message.delete(), 5900)
+            })
+        } 
+        else if(message.member.hasPermission('ADMINISTRATOR')){
+            message.channel.messages.fetch().then((results) => {
+                message.channel.bulkDelete(results)
+            })
+            message.reply('100 Text Cleared!!')
+            .then(message => {
+                setTimeout (() => message.delete(), 5900)
+            })
         } else{
             message.reply('How dare you to use this command!!')
         }
