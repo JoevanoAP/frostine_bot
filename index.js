@@ -4,101 +4,59 @@ const frostine = new Discord.Client()
 const config = require('./config.json')
 const command = require('./utillity/prefix_perma.js')
 
-const first_message = require('./utillity/first_message.js')
-
 
 frostine.on('ready', () => {
     console.log('Bot Online')
 
-    //utillity output
-    //first_message(frostine, '849970160969449472', 'helloworlds!!!', ['❄'])
-    //10/6/2021
-
-    //ping command
-    command(frostine, 'ping', (message) => {
-        if(command){
-           message.channel.send(`**${frostine.ws.ping}ms**, Bot Ping!!`)
-        }
-    })
-
-    //invite command
-    command(frostine, 'invite', (message) => {
-        const invite_link = config.invite
-        message.reply(invite_link)
-    })
-
-    //help command
+    // ----------> Start Commands of Server <----------//
+    //Help Command//
     command(frostine, 'help', (message) => {
         const help = new Discord.MessageEmbed()
         .setTitle('Frostine Bot Plugins Commands')
-        .addField('Help Commands', '``| ping | invite | info | avatar (alpha) |``')
-        .addField('Admin Commands', '``| status | roles | data |``')
-        .addField('Moderators Commands', '``| ban | kick | clear |``')
+        .setDescription('Frostine Bot!! Prefix (+)')
+        .addField('Commands For Members', '+member')
+        .addField('Admin Commands', '+admin')
+        .addField('Moderators Commands', '+mod')
         .setColor('96fff5')
         message.channel.send(help)
     })
+    //Help Command//
 
-    //display roles
-    command(frostine, 'roles', (message) => {
-        if(message.member.hasPermission('ADMINISTRATOR')){
-            var rolemap = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(r => r).join("\n")
-            if (rolemap.length > 1024) rolemap = "To many roles to display";
-            if (!rolemap) rolemap = "No roles";
-
-            const roles_list = new Discord.MessageEmbed()
-            .addField("Role List" , rolemap)
-            .setColor('96fff5')
-            message.channel.send(roles_list);
-        }
-        else{
-            message.reply('How dare you to use this command!!')
-        }
+    //---------- ~ Help Command (Members) ~ ----------//
+    command(frostine, 'member', (message) => {
+        const help_member = new Discord.MessageEmbed()
+        .setTitle('Members Commands')
+        .setAuthor('', '')
+        .setDescription('Commands that members can access | Prefix (+)')
+        .addFields({
+            name: 'ping',
+            value:'Display the bot ping (ms)',
+        }, {
+            name: 'info',
+            value: 'To access Bot Information',
+        }, {
+            name: 'invite',
+            value: 'Invite Link Frostine Team Server',
+        }, {
+            name: 'avatar',
+            value: 'Displaying User Avatar / Members Avatar (alpha) | +avatar (@member)',
+        }, {
+            name: 'games',
+            value: 'To see games that frostine bot have',
+        })
+        .setColor('GREEN')
+        .setTimestamp()
+        
+        message.channel.send(help_member)
     })
 
-    //data
-    command(frostine, 'data', (message) => {
-        if(message.member.hasPermission('ADMINISTRATOR')){
-            var target = message.mentions.users.first() || message.author
-            var member = message.mentions.members.first() || message.member
-
-            const data = new Discord.MessageEmbed()
-            .setTitle(`${member.displayName} Member Data!!`)
-            .setTimestamp()
-            .addFields({
-                name: 'Member Joined',
-                value: member.joinedAt
-            },{
-                name: 'Member Account Created',
-                value: target.createdAt
-            }, {
-                name: "Username & Tag",
-                value: target.tag
-            }, {
-                name: 'Member Id',
-                value: target.id
-            })
-            .setThumbnail(target.displayAvatarURL({ dynamic: true }))
-            .setColor('96fff5')
-            message.channel.send(data)
-        } else {
-            message.reply('How dare you to use this command!!')
-        }
+    //---------- Ping Command ----------//
+    command(frostine, 'ping', (message) => {
+        +message.channel.send(`**${frostine.ws.ping}ms**, Bot Ping!!`)
     })
+    //---------- Ping command ----------//
 
-    //avatar
-    command(frostine, 'avatar', (message) => {
-        const target = message.mentions.users.first()
-        const avatar = new Discord.MessageEmbed()
-        .setTitle(target.tag + ' Avatar')
-        .setImage(target.avatarURL({dynamic: true}))
-        .setColor('96fff5')
-        .setFooter(`${message.author.username}`)
-
-        message.channel.send(avatar)
-
-    })
-
-    //info command
+    //---------- Info command ----------//
     command(frostine, 'info', (message) => {
         const info = new Discord.MessageEmbed()
         .setTitle('Bot Information')
@@ -107,32 +65,111 @@ frostine.on('ready', () => {
         .setColor('96fff5')
         message.channel.send(info)
     })
+    //---------- Info command ----------//
 
-    //nuke command
-    command(frostine, 'clear', (message) => {
+    //---------- Invite command ----------//
+    command(frostine, 'invite', (message) => {
+        const invite_link = config.invite
+        message.reply(invite_link)
+    })
+    //---------- Invite command ----------//
+
+    //---------- Avatar command ----------//
+    command(frostine, 'avatar', (message) => {
+        const target = message.mentions.users.first()
+        const avatar = new Discord.MessageEmbed()
+        .setTitle(target.tag + ' Avatar')
+        .setImage(target.avatarURL({dynamic: true}))
+        .setColor('RANDOM')
+        .setFooter(`${message.author.username}`)
+
+        message.channel.send(avatar)
+
+    })
+    //---------- Avatar command ----------//
+
+    //---------- ~ Games command ~ ----------//
+    command(frostine, 'games', (message) => {
+        const games = new Discord.MessageEmbed()
+        .setTitle('Games!!')
+        .setDescription('Games that author make!! Prefix (+)')
+        .addFields({
+            name: 'ttt',
+            value: 'Tic Tac Toe Games | +ttt (@member)'
+        })
+        .setColor('RANDOM')
+
+        message.channel.send(games)
+    })
+    
+    //---------- TTT command ----------//
+    command(frostine, 'ttt', (message) => {
+        const { tictactoe } = require('reconlx')
+        const member = message.mentions.members.first()
+
+        if(!member){
+            const ttt = new Discord.MessageEmbed()
+            .addField('Upss!! Wrong Syntax', 'Please Specify the Members')
+            .setColor('RED')
+            message.channel.send(ttt)
+        } else if (member === null){
+            const ttt = new Discord.MessageEmbed()
+            .addField('Upss!! Wrong Syntax', 'Please Specify the Members')
+            .setColor('RED')
+            message.channel.send(ttt)
+        }
+        new tictactoe({
+            player_two: member,
+            message: message
+        })
+    })
+    //---------- TTT command ----------//
+    //---------- ~ Games command ~ ----------//
+    //---------- ~ Help Command (Members) ~ ----------//
+
+
+    //---------- ~ Help Command (Admin/CEO) ~ ----------//
+    command(frostine, 'admin', (message) => {
         if(message.guild.roles.cache.find(r => r.id === '849250745660080128')){
-            message.channel.messages.fetch().then((results) => {
-                message.channel.bulkDelete(results)
+            const admin_command = new Discord.MessageEmbed()
+            .setTitle('Admin Commands')
+            .setDescription('Just Admin/CEO can use this command!! Prefix (+)')
+            .addFields({
+                name: 'status',
+                value: 'Change bot status (WARNING DONT USE THIS COMMAND / SPAM THIS COMMAND)'
+            }, {
+                name: 'roles',
+                value: 'Display all Frostine Team Roles'
+            }, {
+                name: 'data',
+                value: 'Get Members Data!! (+data (@member))' 
             })
-            message.reply('100 Text Cleared!!')
-            .then(message => {
-                setTimeout (() => message.delete(), 5900)
-            })
-        } 
-        else if(message.member.hasPermission('ADMINISTRATOR')){
-            message.channel.messages.fetch().then((results) => {
-                message.channel.bulkDelete(results)
-            })
-            message.reply('100 Text Cleared!!')
-            .then(message => {
-                setTimeout (() => message.delete(), 5900)
-            })
-        } else{
+
+            message.channel.send(admin_command)
+        } else {
             message.reply('How dare you to use this command!!')
         }
     })
 
-    //status command
+    //---------- Status Command ----------//
+    command(frostine, 'status', (message) => {
+        if(message.guild.roles.cache.find(r => r.id === '849250745660080128')){
+            const content = message.content.replace('+status ', '')
+
+            frostine.user.setPresence({
+                activity: {
+                    name: content,
+                    type: 0,
+                },
+            })
+            if(content){
+                message.reply('Status Changed!!')
+            } 
+        } else{
+            message.reply('How dare you to use this command!!') 
+        }
+    })
+    //---------- Status Command ----------//
     command(frostine, 'status', (message) => {
         if(message.member.hasPermission('ADMINISTRATOR')){
             const content = message.content.replace('+status ', '')
@@ -150,63 +187,11 @@ frostine.on('ready', () => {
             message.reply('How dare you to use this command!!') 
         }
     })
+    //---------- Status Command ----------//
 
-    //ban command
-    command(frostine, 'ban', (message) => {
-        const { member, mentions } = message
-        const tag = `<@${member.id}>`
-
-        if(member.hasPermission('BAN_MEMBERS')){
-            const target = mentions.users.first()
-            if(target){
-                const targetMember = message.guild.members.cache.get(target.id)
-                targetMember.ban()
-                message.channel.send(`${tag} That user has been banned.`)
-            } 
-            else if(!mentions.users.first()){
-                const nopE = new Discord.MessageEmbed()
-                .addField('Upss!! Wrong Syntax', '+ban (@member)')
-                .setColor('RED')
-
-                message.channel.send(nopE)
-            } else {
-                message.channel.send(`${tag} How dare you use this command!`)
-            }
-        }
-    })
-
-    //kick command
-    command(frostine, 'kick', (message) => {
-        const { member, mentions } = message
-        const tag = `<@${member.id}>`
-
-        if(member.hasPermission('KICK_MEMBERS')){
-            const target = mentions.users.first()
-            if(target){
-                const targetMember = message.guild.members.cache.get(target.id)
-                targetMember.kick()
-                message.channel.send(`${tag} That user has been Kicked.`)
-            } else if(!mentions.users.first()){
-                const nopE = new Discord.MessageEmbed()
-                .addField('Upss!! Wrong Syntax', '+kick (@member)')
-                .setColor('RED')
-
-                message.channel.send(nopE)
-            }
-            else{
-                message.channel.send(`${tag} How dare you use this command!`)
-            }
-        }
-    })
-
-    const { prefix } = config
-    frostine.user.setPresence({
-        activity: {
-            type: `PLAYING`,
-            name: 'Frostine Server',
-        },
-    })  
-
+    //---------- Status Command ----------//
+    //---------- ~ Help Command (Admin/CEO) ~ ----------//
+    
 })
 
 frostine.login(config.token)
