@@ -358,6 +358,7 @@ frostine.on('ready', () => {
         activity: {
             type: `PLAYING`,
             name: 'Frostine Server',
+            status: 'busy'
         },
     })  
 })
